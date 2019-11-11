@@ -1,10 +1,10 @@
 require("dotenv").config();
 var BAND = require("./bands");
-// var OMDB = require("./omdb");
+var OMDB = require("./omdb");
 // var spotify = require("./spotify");
 // var keys = require("./keys.js");
 var bands = new BAND();
-
+var omdb = new OMDB();
 // var spotify = new Spotify(keys.spotify);
 // Grab search command line argument
 var search = process.argv[2];
@@ -20,10 +20,10 @@ if (search === "concert-this") {
 //     console.log("Searching for music on spotify");
 //     spotfiy.findsong(term);
 // }
-// else if (search === "movie-this") {
-//     console.log("Searching for Movie");
-//     omdb.findmovie(term);
-// }
+else if (search === "movie-this") {
+    console.log("Searching for Movie");
+    omdb.findMovie(term);
+}
 else {
     console.log('LIRI does not know this command');
 }
