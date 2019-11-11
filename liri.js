@@ -1,11 +1,11 @@
 require("dotenv").config();
-var bands = require("./bands");
-var OMDB = require("./omdb");
-var spotify = require("./spotify");
-var keys = require("./keys.js");
+var BAND = require("./bands");
+// var OMDB = require("./omdb");
+// var spotify = require("./spotify");
+// var keys = require("./keys.js");
+var bands = new BAND();
 
-
-var spotify = new Spotify(keys.spotify);
+// var spotify = new Spotify(keys.spotify);
 // Grab search command line argument
 var search = process.argv[2];
 // Joining the remaining arguments since an actor or tv show name may contain spaces
@@ -16,14 +16,14 @@ if (search === "concert-this") {
     console.log("Searching for Shows");
     bands.inTown(term);
 }
-else if (search === "spotify-this-song") {
-    console.log("Searching for music on spotify");
-    spotfiy.findsong(term);
-}
-else if (search === "movie-this") {
-    console.log("Searching for Movie");
-    omdb.findmovie(term);
-}
+// else if (search === "spotify-this-song") {
+//     console.log("Searching for music on spotify");
+//     spotfiy.findsong(term);
+// }
+// else if (search === "movie-this") {
+//     console.log("Searching for Movie");
+//     omdb.findmovie(term);
+// }
 else {
     console.log('LIRI does not know this command');
 }
@@ -37,3 +37,5 @@ else {
 //             console.log('LIRI does not know this command');
 //     }
 // }
+
+// psuedoCode all the things this thing isnt even remotely complete//
