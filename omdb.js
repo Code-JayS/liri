@@ -11,6 +11,7 @@ var OMDB = function () {
 
     axios.get(Url).then(
       function (response) {
+        console.log(" ");
         console.log("Title: " + response.data.Title);
         divider
         console.log("Release Year: " + response.data.Year);

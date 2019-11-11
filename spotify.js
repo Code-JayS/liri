@@ -1,62 +1,30 @@
-var axios = require("axios");
-var fs = require("fs");
+var Spotify = require('node-spotify-api');
+require("dotenv").config();
+var key = require("./key");
+var spotify = new Spotify(key.spotify);
+var artists = [];
+var SPOT = function () {
 
+  this.findSong = function (term) {
 
-
-
-
-// Create the TV constructor
-var TV = function () {
-  // divider will be used as a spacer between the tv data we print in log.txt
-  var divider = "\n------------------------------------------------------------\n\n";
-
-  // findShow takes in the name of a tv show and searches the tvmaze API
-  this.findShow = function (show) {
-    var URL = "http://api.tvmaze.com/singlesearch/shows?q=" + show;
-
-    axios.get(URL).then(function (response) {
-      // Place the response.data into a variable, jsonData.
-      var jsonData = response.data;
-console.log(response.data)
-      // showData ends up being the string containing the show data we will print to the console
-      var showData = [
-        "Show: " + jsonData.name,
-        "Genre(s): " + jsonData.genres.join(", "),
-        "Rating: " + jsonData.rating.average,
-        "Network: " + jsonData.network.name,
-        "Summary: " + jsonData.summary
-      ].join("\n\n");
-
-      // Append showData and the divider to log.txt, print showData to the console
-      fs.appendFile("log.txt", showData + divider, function (err) {
-        if (err) throw err;
-        console.log(showData);
-      });
+    spotify.search({ type: 'track', query: term }, function (err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      }
+      for (let i = 0; i < data.tracks.items.length; i++) {
+        var artist = data.tracks.items[i].album.artists[0].name;
+        if (!artists.includes(artist)) {
+          console.log(artist);
+          console.log(data.tracks.items[i].name);
+          console.log(data.tracks.items[i].preview_url);
+          console.log(data.tracks.items[i].album.name);
+          console.log(" ");
+          artists.push(artist);
+        }
+      }
     });
-  };
-
-  this.findActor = function (actor) {
-    var URL = "http://api.tvmaze.com/search/people?q=" + actor;
-    axios.get(URL).then(function (response) {
-      // Place the response.data into a variable, jsonData.
-      console.log(response.data[0].person)
-      var jsonActor = response.data[0];
-      var actorData = [
-        "Name: " + jsonActor.person.name,
-        "Gender: "+  jsonActor.person.gender,
-        "Birthday: "+ jsonActor.person.birthday,
-        "Country: "+ jsonActor.person.country.name,
-        "URL: "+ jsonActor.person.url
-      ].join("\n\n");
-
-      console.log(actorData)
-      
-      // Add code to search the TVMaze API for the given actor
-      // The API will return an array containing multiple actors, just grab the first result
-      // Append the actor's name, birthday, gender, country, and URL to the `log.txt` file
-      // Print this information to the console
-    });
-  };
+  }
 }
 
-  module.exports = SPOT;
+
+module.exports = SPOT;

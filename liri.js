@@ -1,11 +1,11 @@
 require("dotenv").config();
 var BAND = require("./bands");
 var OMDB = require("./omdb");
-// var spotify = require("./spotify");
-// var keys = require("./keys.js");
+var SPOT = require("./spotify");
+var spotify = new SPOT();
 var bands = new BAND();
 var omdb = new OMDB();
-// var spotify = new Spotify(keys.spotify);
+
 // Grab search command line argument
 var search = process.argv[2];
 // Joining the remaining arguments since an actor or tv show name may contain spaces
@@ -16,10 +16,10 @@ if (search === "concert-this") {
     console.log("Searching for Shows");
     bands.inTown(term);
 }
-// else if (search === "spotify-this-song") {
-//     console.log("Searching for music on spotify");
-//     spotfiy.findsong(term);
-// }
+else if (search === "spotify-this-song") {
+    console.log("Searching for music on spotify");
+    spotify.findSong(term);
+}
 else if (search === "movie-this") {
     console.log("Searching for Movie");
     omdb.findMovie(term);
