@@ -18,6 +18,8 @@ a look up to see a band schedule
 
 node liri concert-this <your band>
 
+![alt demo gif ](./liridemo.gif)
+
 
 
 
